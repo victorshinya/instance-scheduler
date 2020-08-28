@@ -21,6 +21,36 @@ packages:
       index:
         function: main.go
         web-export: false
+        inputs:
+          username:
+            type: string
+            value: <vpn-username>
+          apikey:
+            type: string
+            value: <classic-infrastructure-api-key>
+          name:
+            type: string
+            value: <virtual-server-name>
+          power:
+            type: boolean
+    triggers:
+      power-off:
+        feed: /whisk.system/alarms/alarm
+        inputs:
+          cron: "0 3 * * *"
+          trigger_payload: "{\"power\":false}"
+      power-on:
+        feed: /whisk.system/alarms/alarm
+        inputs:
+          cron: "0 9 * * *"
+          trigger_payload: "{\"power\":true}"
+    rules:
+      power-off-rule:
+        action: index
+        trigger: power-off
+      power-on-rule:
+        action: index
+        trigger: power-on
 # See references:
 # https://serverless.com/framework/docs/providers/openwhisk/guide/serverless.yml
 # https://cloud.ibm.com/docs/openwhisk?topic=cloud-functions-deploy
