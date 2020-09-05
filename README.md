@@ -36,9 +36,9 @@ As you can manage your infrastructure using a SDK or API, you have to authentica
 
 Open [manifest.yml](manifest.yml) and replace the following:
 
-- [ Line 27 ] `<vpn-username>` by the username from previous step.
-- [ Line 30 ] `<classic-infrastructure-api-key>` by the classic infrastructure api key from previous step.
-- [ Line 36 ] `<virtual-server-name>` by the name of your IBM Cloud Virtual Server instance.
+- [ Line 27 and 43 ] `<vpn-username>` by the username from previous step.
+- [ Line 30 and 46 ] `<classic-infrastructure-api-key>` by the classic infrastructure api key from previous step.
+- [ Line 36 and 49 ] `<virtual-server-name>` by the name of your IBM Cloud Virtual Server instance.
 
 ### 4. Set the time to power off and power on the VSI
 
