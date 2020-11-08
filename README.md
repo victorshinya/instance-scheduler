@@ -8,6 +8,8 @@
 
 A Serverless function to automatically start and stop IBM Cloud Virtual Server Instances.
 
+![Architecture Design](doc/source/images/architecture.jpg)
+
 ## Deploy to IBM Cloud
 
 Before you get started, you need to install [IBM Cloud CLI](https://cloud.ibm.com/docs/cli/reference/ibmcloud/download_cli.html#install_use) and [IBM Cloud Functions CLI](https://cloud.ibm.com/openwhisk/learn/cli) in your local machine. Then, you need to login in your IBM Cloud account on IBM Cloud CLI (if you haven't already done, run `ibmcloud login`).
