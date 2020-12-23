@@ -3,7 +3,7 @@
 [![IBM Cloud Powered](https://img.shields.io/badge/IBM%20Cloud-powered-blue.svg)](https://cloud.ibm.com)
 [![Platform](https://img.shields.io/badge/platform-golang-lightgrey.svg?style=flat)](https://developer.ibm.com/?s=golang/)
 [![Go Report Card](https://goreportcard.com/badge/github.com/victorshinya/go-cloud)](https://goreportcard.com/report/github.com/victorshinya/instance-scheduler)
-[![LICENSE](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/victorshinya/instance-scheduler/blob/master/LICENSE)
+[![LICENSE](https://img.shields.io/github/license/victorshinya/instance-scheduler)](https://github.com/victorshinya/instance-scheduler/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/victorshinya/instance-scheduler/pulls)
 
 A Serverless function to automatically start and stop IBM Cloud Virtual Server Instances.
