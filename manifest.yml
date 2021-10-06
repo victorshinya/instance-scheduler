@@ -19,37 +19,21 @@ packages:
     license: Apache-2.0
     actions:
       index-off:
-        function: main.go
+        function: handler.go
         web-export: false
         inputs:
-          username:
-            type: string
-            value: <vpn-username>
-          apikey:
-            type: string
-            value: <classic-infrastructure-api-key>
-          name:
-            type: string
-            value: <virtual-server-name>
-          power:
-            type: boolean
-            value: false
+          username: $SOFTLAYER_USERNAME
+          apikey: $SOFTLAYER_APIKEY
+          name: $VSIS_NAME
+          power: false
       index-on:
-        function: main.go
+        function: handler.go
         web-export: false
         inputs:
-          username:
-            type: string
-            value: <vpn-username>
-          apikey:
-            type: string
-            value: <classic-infrastructure-api-key>
-          name:
-            type: string
-            value: <virtual-server-name>
-          power:
-            type: boolean
-            value: true
+          username: $SOFTLAYER_USERNAME
+          apikey: $SOFTLAYER_APIKEY
+          name: $VSIS_NAME
+          power: true
     triggers:
       power-off:
         feed: /whisk.system/alarms/alarm

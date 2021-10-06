@@ -34,21 +34,25 @@ As you can manage your infrastructure using a SDK or API, you have to authentica
 
 ![Instance Scheduler 02](doc/source/images/Instance_Scheduler_02.png)
 
-### 3. Update the parameters on manifest.yml
+### 3. Set up the environment variables to deploy them as function's parameters
 
-Open [manifest.yml](manifest.yml) and replace the following:
+Run the following command with the classic infrastructure username and API key, and the list with all Virtual Servers to power on/off:
 
-- [ Line 27 and 43 ] `<vpn-username>` by the username from previous step.
-- [ Line 30 and 46 ] `<classic-infrastructure-api-key>` by the classic infrastructure api key from previous step.
-- [ Line 36 and 49 ] `<virtual-server-name>` by the name of your IBM Cloud Virtual Server instance.
+- SOFTLAYER_USERNAME is the `Username` field that you copied from previous step.
+- SOFTLAYER_APIKEY is the `API key`, generated in the previous step.
+- VSIS_NAME is the list with all Virtual Servers on Classic IaaS (Softlayer) that you'd like to power on/off - e.g. `'["VSI NAME 01", "VSI NAME 02", "SO ON, AND ON"]'`.
+
+```sh
+export SOFTLAYER_USERNAME="" SOFTLAYER_APIKEY="" VSIS_NAME='[""]'
+```
 
 ### 4. Set the time to power off and power on the VSI
 
-On the same file from previous step, it is set (by default) to power off the VSI at 03:00 AM (00:00 AM GMT-3) and to power on the VSI at 09:00 AM (06:00 AM GMT-3). Update if you need to run both actions at the desire hour.
+In [`manifest.yml`](manifest.yml) file, it is set (by default) to power off the VSI at 03:00 AM (00:00 AM GMT-3) and to power on the VSI at 09:00 AM (06:00 AM GMT-3). Update if you need to run both actions at the desire hour.
 
 ### 5. Deploy the Action, Triggers and Rules
 
-Run the following command to deploy `main.go` function and to set up the Triggers and Rules.
+Run the following command to deploy `handler.go` function and to set up the Triggers and Rules.
 
 > As you are using IBM Cloud Functions, you don't need to install any package or setup a package.json. The platform already has all libraries required to run the source code.
 

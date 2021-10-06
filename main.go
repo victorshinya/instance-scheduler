@@ -19,80 +19,34 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"fmt"
+	"log"
 	"net/http"
-	"strconv"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
-var (
-	username string
-	apikey   string
-)
-
-// VirtualServer model to handle only the useful data
-type VirtualServer struct {
-	ID         int    `json:"id"`
-	DomainName string `json:"fullyQualifiedDomainName"`
+func Handler(w http.ResponseWriter, r *http.Request) {
+	params := map[string]interface{}{
+		"username": os.Getenv("SOFTLAYER_USERNAME"),
+		"apikey": os.Getenv("SOFTLAYER_APIKEY"),
+		"name": os.Getenv("VSIS_NAME"),
+		"power": os.Getenv("POWER"),
+	}
+	res := Main(params)
+	b, err := json.Marshal(res)
+	if err != nil {
+		log.Fatalf("Error to parse Function response to []byte: %v", err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+	w.Write(b)
 }
 
-// Main function to run the Action source code
-func Main(params map[string]interface{}) map[string]interface{} {
-	username = params["username"].(string)
-	apikey = params["apikey"].(string)
-	on := params["power"].(bool)
-	name := params["name"].(string)
+func main() {
+	godotenv.Load()
 
-	client := &http.Client{}
-	req, err := http.NewRequest("GET", "https://api.softlayer.com/rest/v3.1/SoftLayer_Account/getVirtualGuests", nil)
-	if err != nil {
-		panic(err)
-	}
-	req.SetBasicAuth(username, apikey)
-	resp, err := client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
-	}
-	var vsis []VirtualServer
-	err = json.Unmarshal(body, &vsis)
-	r := make(map[string]interface{})
-	for _, vsi := range vsis {
-		// fmt.Printf("ID = %d; VSI = %s\n", vsi.Id, vsi.DomainName)
-		if vsi.DomainName == name {
-			success := power(on, &vsi)
-			r["success"] = success
-			r["id"] = vsi.ID
-			r["name"] = vsi.DomainName
-		}
-	}
-	return r
-}
-
-func power(on bool, vsi *VirtualServer) bool {
-	url := "https://api.softlayer.com/rest/v3.1/SoftLayer_Virtual_Guest/" + strconv.Itoa(vsi.ID) + "/powerOff"
-	if on {
-		url = "https://api.softlayer.com/rest/v3.1/SoftLayer_Virtual_Guest/" + strconv.Itoa(vsi.ID) + "/powerOn"
-	}
-	client := &http.Client{}
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		panic(err)
-	}
-	req.SetBasicAuth(username, apikey)
-	resp, err := client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
-	}
-	res := true
-	if string(body) == "false" {
-		res = false
-	}
-	return res
+	http.HandleFunc("/", Handler)
+	fmt.Println("Listening on port 8080")
+	http.ListenAndServe(":8080", nil)
 }
