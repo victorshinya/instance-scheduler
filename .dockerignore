@@ -1,0 +1,25 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Vendor folder
+vendor/
+
+# godotenv environment variables file
+.env
+.env.test
+
+# IBM project
+.ibm-project
+
+# Air Live Reload
+tmp/
